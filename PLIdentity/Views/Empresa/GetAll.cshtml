@@ -1,0 +1,82 @@
+﻿@model ML.Empresa
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row"> 
+        <center><h1 style="font-family:'Times New Roman', Times, serif">Todas las Empresas</h1></center>
+    </div>
+</div>
+<hr />
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <h5 style="font-family:Arial"> Selecciona el Botón Amarillo en la tabla para Editar el Registro.</h5>
+        <h5 style="font-family:Arial"> Selecciona el Botón Rojo en la tabla para Eliminar el Registro.</h5>
+        <h5 style="font-family:Arial"> Selecciona el Botón Verde en la tabla para Agregar un Nuevo Registro.</h5>
+    </div>
+</div>
+<hr />
+<br />
+<div class="row">
+    <div style="float:right">
+
+        <a class="btn btn-success" href="@Url.Action("Form", "Empleado")"> <i class="bi bi-building-add"> Agregar</i> </a>
+        <a class="btn btn-danger" href="@Url.Action("Index", "Home")"> <i class="bi bi-person-fill-add"> Regresar</i> </a>
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <table class="table table-bordered table-responsive" id="Empresas">
+        <thead>
+            <tr>
+                <td class="text-center" style=" font-weight:bold;">Editar</td>
+                <td class="hidden">IdEmpresa</td>
+                <td class="text-center" style=" font-weight:bold;">Nombre</td>
+                <td class="text-center" style=" font-weight:bold;">Telefono</td>
+                <td class="text-center" style=" font-weight:bold;">Email</td> 
+                <td class="text-center" style=" font-display">DireccionWeb</td>
+                <td class="text-center" style=" font-weight:bold;">Logo</td>
+                <td class="text-center" style=" font-weight:bold;">Eliminar</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (ML.Empresa empresa in Model.Empresas)
+            {
+                <tr>
+                    <td class="text-center"><a class="btn btn-warning bi bi-person-fill-gear" href="@Url.Action("Form", "Empresa", new { IdEmpresa = empresa.IdEmpresa })"></a></td>
+                    <td class="hidden">@empresa.IdEmpresa</td>                   
+                    <td>@empresa.Nombre</td>
+                    <td>@empresa.Telefono</td>
+                    <td>@empresa.Email</td>
+                    <td>@empresa.DireccionWeb</td>
+                    <td>@empresa.Logo</td>
+                    <td class="text-center"><a class="btn btn-danger bi bi-building-dash" href="@Url.Action("GetAll", "Empresa", new { IdEmpresa = empresa.IdEmpresa })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Empresas').DataTable();
+        });
+    </script>
+}
+
+
+
+
+
+

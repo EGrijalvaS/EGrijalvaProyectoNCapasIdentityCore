@@ -1,0 +1,150 @@
+﻿@model ML.Empleado
+@{
+    ViewBag.Title = "Form";
+}
+
+<div class="container">
+    <div class="row">
+        <center><h2 style="font-family:'Times New Roman', Times, serif">Ingresa el Nuevo Registro</h2></center>
+    </div>
+</div>
+
+
+ <form asp-controller="Empleado" asp-action="Form" id="formulario" method="POST" class="col-md-6 offset-md-3">
+        <input hidden name="NumeroEmpleado" value="@Model.NumeroEmpleado" />
+ 
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-person"></i></span>
+                <input id="Nombre" type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" aria-describedby="addon-wrapping" onclick="return validate ('SoloLetras')">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-person"></i></span>
+                <input id="APaterno" type="text" class="form-control" placeholder="Apellido Paterno" aria-label="ApellidoPaterno" aria-describedby="addon-wrapping" onclick="return validate ('SoloLetras')">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-person"></i></span>
+                <input id="AMaterno" type="text" class="form-control" placeholder="Apellido Materno" aria-label="ApellidoMaterno" aria-describedby="addon-wrapping" onclick="return validate ('SoloLetras')">
+            </div>
+        </div>
+    </div>
+   <br />
+    <div class="row">    
+            <div class="col-md-4">
+                <div class="input-group flex-nowrap">
+                    <input id="Rfc" type="text" class="form-control" placeholder="RFC" aria-label="RFC" aria-describedby="addon-wrapping" onclick="return validate ('SoloLetras')">
+                </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-pass"></i></span>
+                <input id="Nss" type="text" class="form-control" placeholder="NSS" aria-label="NSS" aria-describedby="addon-wrapping" onclick="return validate ('SoloLetras')">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-telephone"></i></span>
+                <input id="Telefono" type="text" class="form-control" placeholder="Telefono" aria-label="Telefono" aria-describedby="addon-wrapping" onclick="return validate ('SoloLetras')">
+            </div>
+        </div>   
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-building"></i></span>
+                <input type="text" class="form-control" placeholder="Id Empresa" aria-label="IdEmpresa" aria-describedby="addon-wrapping" onclick="return validate ('SoloLetras')">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-calendar-date"></i></span>
+                <input type="text" class="form-control" placeholder="Fecha Nacimiento" aria-label="Fecha Nacimiento" aria-describedby="addon-wrapping" onclick="return validate ('SoloLetras')">
+            </div>
+        </div>
+    <div class="col-md-4">
+        <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-calendar-date"></i></span>
+            <input type="text" class="form-control" placeholder="Fecha Ingreso" aria-label="Fecha Ingreso" aria-describedby="addon-wrapping" onclick="return validate ('SoloLetras')">
+        </div>
+    </div>
+    </div>
+
+    <br />
+     <div class="input-group-addon mb-3">
+        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user-plus"></i></span>
+        <input id="fuImage" type='file' class="form-control" name="fuImage" onchange="validateFile(this), readURL(this);  " />            
+    </div>
+    <br />
+    <hr />
+    <br />
+    <div class="row">
+        <div class="col">          
+            <button type="submit" class="btn btn-success"><i class="bi bi-person-check"> Guardar</i></button>
+            <a class="btn btn-danger" href="@Url.Action("GetAll", "Empleado")"> Regresar </a>
+
+        </div>
+    </div>
+
+
+</form>
+
+
+@section Scripts {
+
+    <script src="js/FormEmpleado.js"></script>
+
+
+    <script type="text/javascript">
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#ImagenPreview').art('src', e.target.result);
+                }
+                reader.readAsDataURL(input.file[0]);
+            }
+        }
+
+        var j = jQuery.noConflict();
+
+        j(function () {
+            j("#txtFechaNacimiento").datepicker({
+                dateFormat: 'yy/mm/dd',
+                showOn: 'button',
+                buttonImage: "../../Img/calendar.png",
+                buttonImageOnly: true,
+                changeMonth: true,
+                changeYear: true
+
+            });
+            $(".ui-datepicker-trigger").css("width", "30px");
+            $(".ui-datepicker-trigger").css("height", "30px");
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        function SoloLetras(event) {
+            var letra = event.key;
+            var regexOnlyLetters = /^[A-Za-z]+$/;
+
+            if (regexOnlyLetters.test(letra)) {
+                return true;
+            }
+            else {
+                alert('Solo se aceptan letras sin espacios');
+
+                return false
+            }
+        }
+    </script>
+}

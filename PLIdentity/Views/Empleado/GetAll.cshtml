@@ -1,0 +1,84 @@
+﻿@model ML.Empleado
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <center><h2 style="font-family:'Times New Roman', Times, serif">Empleados</h2></center>
+    </div>
+    <hr />
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class=""style="font-family:Arial"> Selecciona el Botón</h5><h5 style="color:yellow">Amarillo</h5><h5 style="font-family:Arial">en la tabla para Editar el Registro.</h5>
+            <h5 style="font-family:Arial"> Selecciona el Botón Rojo en la tabla para Eliminar el Registro.</h5>
+            <h5 style="font-family:Arial"> Selecciona el Botón Verde en la tabla para Agregar un Nuevo Registro.</h5>
+        </div>
+    </div>
+    <hr />
+    <br />
+    <div class="row">
+        <div style="float:right">         
+            <a class="btn btn-success" href="@Url.Action("Form", "Empleado")"> <i class="bi bi-person-fill-add"> Agregar</i> </a>
+            <a class="btn btn-danger" href="@Url.Action("Index", "Home")"> <i class="bi bi-person-fill-add"> Regresar</i> </a>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered table-responsive" id="Empleados">
+            <thead>
+                <tr>
+                    <td class="text-center" style=" font-weight:bold;">Editar</td>
+                    <td class="hidden">NumeroEmpleado</td>
+                    <td class="text-center" style=" font-weight:bold;">RFC</td>
+                    <td class="text-center" style=" font-weight:bold;">Nombre</td>
+                    <td class="text-center" style=" font-weight:bold;">ApellidoPaterno</td>
+                    <td class="text-center" style=" font-weight:bold;">ApellidoMaterno</td>
+                    <td class="text-center" style=" font-weight:bold;">Email</td>
+                    <td class="text-center" style=" font-weight:bold;">Telefono</td>
+                    <td class="text-center" style=" font-weight:bold;">FechaNacimiento</td>
+                    <td class="text-center" style=" font-weight:bold;">Nss</td>
+                    <td class="text-center" style=" font-weight:bold;">FechaIngreso</td>
+                    <td class="text-center" style=" font-weight:bold;">Dependientes</td>
+                    <td class="text-center" style=" font-weight:bold;">Eliminar</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (ML.Empleado empleado in Model.Empleados)
+                {
+                    <tr>
+                        <td class="text-center"><a class="btn btn-warning bi bi-person-fill-gear" href="@Url.Action("Form", "Empleado", new { NumeroEmpleado = empleado.NumeroEmpleado })"></a></td>
+                        <td class="hidden">@empleado.NumeroEmpleado</td>
+                        <td>@empleado.Rfc</td>
+                        <td>@empleado.Nombre</td>
+                        <td>@empleado.ApellidoPaterno</td>
+                        <td>@empleado.ApellidoMaterno</td>
+                        <td>@empleado.Email</td>
+                        <td>@empleado.Telefono</td>
+                        <td>@empleado.FechaNacimiento</td>
+                        <td>@empleado.Nss</td>
+                        <td>@empleado.FechaIngreso</td>
+                        <td class="text-center"><a class="btn btn-info bi bi-heart-pulse-fill" href="@Url.Action("GetAll", "Dependiente", new { NumeroEmpleado = empleado.NumeroEmpleado })"></a></td>
+                        <td class="text-center"><a class="btn btn-danger bi bi-person-dash" href="@Url.Action("GetAll", "Empleado", new { NumeroEmpleado = empleado.NumeroEmpleado })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Empleados').DataTable();
+        });
+    </script>
+}
