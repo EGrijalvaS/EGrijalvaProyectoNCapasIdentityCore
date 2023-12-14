@@ -1,0 +1,193 @@
+﻿@model ML.Dependiente
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <center>
+            <div class="col-auto">
+                <h1 style="font-family:'Times New Roman', Times, serif">Dependientes</h1>
+            </div>
+        </center>
+    </div>
+</div>
+
+@if (Model.Dependientes.Count > 0 && Model.Dependientes != null)
+{
+    foreach (ML.Dependiente dependiente in Model.Dependientes)
+    {
+        <div class="row">
+            <div class="col-md-5">
+                <table>
+                    <ul class="cards">
+                        <li>
+                            <a href="@Url.Action("GetAll","Empleado")" onclick="return(int.IdDependiente);" class="card">
+                                <img src="https://th.bing.com/th/id/OIP.KwmMbj9KGkL6olvc4LyV9AHaHa?pid=ImgDet&rs=1" class="card__image" alt="" />
+                                <div class="card__overlay">
+                                    <div class="card__header">
+                                        <svg class="card__arc" xmlns="#">
+                                        </svg>
+                                        <img class="card__thumb" src="https://th.bing.com/th/id/OIP.900Pcp3wzrgtIgWMytgRxQHaE8?pid=ImgDet&rs=1" alt="" />
+                                        <div class="card__header-text">
+                                            <h3 class="card__title">Nombre:@dependiente.Nombre, @dependiente.ApellidoPaterno,@dependiente.ApellidoMaterno</h3>                                
+                                            <span class="card__status">Estado Civil:@dependiente.EstadoCivil, Genero:@dependiente.Genero</span>
+                                        </div>
+                                    </div>
+                                    <p class="card__description">Fecha de Nacimiento:@dependiente.FechaNacimiento, RFC:@dependiente.Rfc</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </table>
+            </div>
+        </div>
+    }
+}
+
+<style>
+    :root {
+        --surface-color: #fff;
+        --curve: 40;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Noto Sans JP", sans-serif;
+        background-color: #fef8f8;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+        gap: 2rem;
+        margin: 4rem 5vw;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    .card {
+        position: relative;
+        display: block;
+        height: 100%;
+        border-radius: calc(var(--curve) * 1px);
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+    .card__image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .card__overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        border-radius: calc(var(--curve) * 1px);
+        background-color: var(--surface-color);
+        transform: translateY(50%);
+        transition: 0.2s ease-in-out;
+    }
+
+    .card:hover .card__overlay {
+        transform: translateY(0);
+    }
+
+    .card__header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 2em;
+        padding: 2em;
+        border-radius: calc(var(--curve) * 1px) 0 0 0;
+        background-color: var(--surface-color);
+        transform: translateY(-50%);
+        transition: 0.2s ease-in-out;
+    }
+
+    .card__arc {
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        bottom: 20%;
+        right: 0;
+        z-index: 1;
+    }
+
+        .card__arc path {
+            fill: var(--surface-color);
+            d: path("M 40 80 c 22 0 40 -22 40 -40 v 40 Z");
+        }
+
+    .card:hover .card__header {
+        transform: translateY(0);
+    }
+
+    .card__thumb {
+        flex-shrink: 0;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .card__title {
+        font-size: 1em;
+        margin: 0 0 0.3em;
+        color: #6a515e;
+    }
+
+    .card__tagline {
+        display: block;
+        margin: 1em 0;
+        font-family: "MockFlowFont";
+        font-size: 0.8em;
+        color: #d7bdca;
+    }
+
+    .card__status {
+        font-size: 0.8em;
+        color: #d7bdca;
+    }
+
+    .card__description {
+        padding: 0 2em 2em;
+        margin: 0;
+        color: #d7bdca;
+        font-family: "MockFlowFont";
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+    }
+</style>
+
+@section scripts{
+
+    <script src="~/Scripts//jquery-3.4.1.js"></script>
+    <script type="text/javascript">
+        function VisualizarTabla() {
+            var cardsShow = $("#cardsShow");
+            var tableShow = $("#tableShow");
+            var btnVisualizar = $("#btnVisualizar");
+            if (cardsShow.is(":hidden")) {
+                location.reload();
+                cardsShow.show();
+                tableShow.hide();
+                btnVisualizar.text('Visualizar Tabla');
+            } else {
+                cardsShow.hide();
+                tableShow.show();
+                btnVisualizar.text('Visualizar Tarjetas')
+            }
+        }
+    </script>
+}
+
+

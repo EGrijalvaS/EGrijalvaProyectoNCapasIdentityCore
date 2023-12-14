@@ -27,6 +27,10 @@ public partial class EgrijalvaProyectoNcapasIdentityCoreContext : DbContext
 
     public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
 
+    public virtual DbSet<Dependiente> Dependientes { get; set; }
+
+    public virtual DbSet<DependienteTipo> DependienteTipos { get; set; }
+
     public virtual DbSet<Empleado> Empleados { get; set; }
 
     public virtual DbSet<Empresa> Empresas { get; set; }
@@ -107,6 +111,56 @@ public partial class EgrijalvaProyectoNcapasIdentityCoreContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(128);
 
             entity.HasOne(d => d.User).WithMany(p => p.AspNetUserTokens).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<Dependiente>(entity =>
+        {
+            entity.HasKey(e => e.IdDependiente).HasName("PK__Dependie__366D077133C2ED1A");
+
+            entity.ToTable("Dependiente");
+
+            entity.Property(e => e.ApellidoMaterno)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.ApellidoPaterno)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.EstadoCivil)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.FechaNacimiento).HasColumnType("date");
+            entity.Property(e => e.Genero)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .IsFixedLength();
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.NumeroEmpleado)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.Rfc)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("RFC");
+            entity.Property(e => e.Telefono)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.IdDependienteTipoNavigation).WithMany(p => p.Dependientes)
+                .HasForeignKey(d => d.IdDependienteTipo)
+                .HasConstraintName("FK__Dependien__IdDep__34C8D9D1");
+        });
+
+        modelBuilder.Entity<DependienteTipo>(entity =>
+        {
+            entity.HasKey(e => e.IdDependienteTipo).HasName("PK__Dependie__2C220C6259A518C3");
+
+            entity.ToTable("DependienteTipo");
+
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Empleado>(entity =>

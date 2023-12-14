@@ -22,7 +22,7 @@
         <div class="col-md-3">
             @Html.LabelFor(model => model.Name)
             <div class="input-group mb-3">
-                <span class="input-group-text"><i class="bi bi-controller"></i></span>
+                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
                 @if (Model.Id != null)
                 {
                     @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @id = "txtNombre", autocomplete = "off" })
@@ -39,8 +39,8 @@
 
         <div class="form-group">
             <div class="col-md-3">
-                <input type="submit" value="Guardar" class="btn btn-success" />
-                @Html.ActionLink("Regresar", "GetAll", "RoleController", htmlAttributes: new { @class = "btn btn-danger" })
+                <input type="submit" value="Guardar" class="btn btn-success bi bi-check2-square" />
+                @Html.ActionLink("Regresar", "GetAll", "RoleController", htmlAttributes: new { @class = "btn btn-danger bi bi-arrow-return-left" })
             </div>
         </div>
     </div>

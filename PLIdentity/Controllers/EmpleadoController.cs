@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SQLitePCL;
 
 namespace PLIdentity.Controllers
@@ -96,13 +97,24 @@ namespace PLIdentity.Controllers
 
         }
 
-        //[HttpGet]
-        //public ActionResult Delete(string NumeroEmpleado)
-        //{
-        //    ML.Result result = BL.Empleado.EmpleadoDelete(empleado);
+        [HttpGet]
+        public ActionResult Delete(string NumeroEmpleado)
+        {
+           ML.Empleado empleado = new  ML.Empleado();
+           ML.Result result = BL.Empleado.EmpleadoDelete(empleado);
 
-        //    return View();
-        //}
+           empleado.NumeroEmpleado = NumeroEmpleado;
+
+           if(result.Correct)
+            {
+                ViewBag.Message = "El Empleado ha siso Eliminado";
+            }
+            else
+            {
+                ViewBag.Message = "El Empleado no pudo ser Eliminado";
+            }
+            return View();
+        }
 
     }
 }

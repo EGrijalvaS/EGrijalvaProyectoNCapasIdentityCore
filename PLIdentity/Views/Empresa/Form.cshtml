@@ -1,0 +1,129 @@
+﻿@model ML.Empresa
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <center>
+            <h1 style="font-family:'Times New Roman', Times, serif">Empresa</h1>
+            <br />
+            <h5 style="font-family:'Times New Roman', Times, serif"> Ingresa el Nuevo Registro</h5>
+        </center>       
+    </div>
+</div>
+<hr />
+
+<form asp-controller="Empresa" asp-action="Form" id="formulario" method="POST" class="col-md-12 offset-md-2">
+    <input hidden name="IdEmpresa" value="@Model.IdEmpresa" />
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-alphabet"></i></span>
+                <input id="Nombre" type="text" class="form-control" placeholder="Nombre" aria-label="Nombre de la Empresa" aria-describedby="addon-wrapping" onclick="return validate ('SoloLetras')">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-telephone"></i></span>
+                <input id="Telefono" type="text" class="form-control" placeholder="55|56" aria-label="Teléfono de la Empresa" aria-describedby="addon-wrapping" onclick="return validate ('SoloNumeros')">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-envelope-at"></i></span>
+                <input id="Email" type="text" class="form-control" placeholder="ejp. empresa@example.com" aria-label="E-Mail de la Empresa" aria-describedby="addon-wrapping" onclick="return validate ('')">
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">      
+        <div class="col-md-9">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-globe"></i></span>
+                <input id="DireccionWeb" type="text" class="form-control" placeholder="Https://" aria-label="URL de la Empresa" aria-describedby="addon-wrapping" onclick="return validate ('')">
+            </div>
+        </div>
+    <br />
+    <br />
+    <br />
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+        <div class="input-group-addon flex-lg-nowrap">
+           <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user-plus"></i></span>
+           <input id="Logo" type='file' class="form-control" name="fuImage" onchange="validateFile(this), readURL(this);  " />
+        </div>
+       </div>
+    </div>
+    <br />
+    <hr />
+    <br />
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-success"><i class="bi bi-check2-square"> Guardar</i></button>
+            <a class="btn btn-danger bi bi-arrow-return-left" href="@Url.Action("GetAll", "Empresa")"> Regresar </a>
+
+        </div>
+    </div>
+
+
+</form>
+
+        @section Scripts {
+
+    <script src="js/FormEmpleado.js"></script>
+
+
+    <script type="text/javascript">
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#ImagenPreview').art('src', e.target.result);
+                }
+                reader.readAsDataURL(input.file[0]);
+            }
+        }
+
+        var j = jQuery.noConflict();
+
+        j(function () {
+            j("#txtFechaNacimiento").datepicker({
+                dateFormat: 'yy/mm/dd',
+                showOn: 'button',
+                buttonImage: "../../Img/calendar.png",
+                buttonImageOnly: true,
+                changeMonth: true,
+                changeYear: true
+
+            });
+            $(".ui-datepicker-trigger").css("width", "30px");
+            $(".ui-datepicker-trigger").css("height", "30px");
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        function SoloLetras(event) {
+            var letra = event.key;
+            var regexOnlyLetters = /^[A-Za-z]+$/;
+
+            if (regexOnlyLetters.test(letra)) {
+                return true;
+            }
+            else {
+                alert('Solo se aceptan letras sin espacios');
+
+                return false
+            }
+        }
+    </script>
+}
+
+
+
